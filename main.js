@@ -1,5 +1,10 @@
 var isoList = ['50' , '100', '200','400','800','1600','3200'];
-var tabFile = './assets/expos.tsv';  
+// const res= [
+//   {"lightDetail": "Светодиодные лампы", "aperture": 2,  "exposure": "1/500"},
+//   {"lightDetail": "Светодиодные лампы", "aperture": 2.8,"exposure": "1/250"},
+//   {"lightDetail": "Светодиодные лампы", "aperture": 4,  "exposure": "1/125"},
+// ];
+var tabFile = './assets/expos.tsv'; 
 
 var filters_stage = {
   "ISO": '',
@@ -37,7 +42,6 @@ var mainDict = {
             'filters':['ISO','GENRE','PLACE']
             }
 };
-
 
 
 //функция, которая генерирует список options для select'a
@@ -91,6 +95,7 @@ function radioOptionsActiveAll(item){
   });
 }
 
+
 //функция, которая оставляет активными только те values которые есть в listValues
 function radiosOptionsActiveList(item,listValues){
   let currentItem = mainDict[item];
@@ -111,17 +116,26 @@ function radiosOptionsActiveList(item,listValues){
       }
     } else{
       element.disabled=false;
-
     }
   });
+
+  //если элемент всего 1
+  //то выбираем его
+  if (listValues.length == 1){
+    el.querySelectorAll('input').forEach(element => {
+      if (listValues.indexOf(element.value)==0){
+        element.checked = true;
+        filters_stage[item]=element.value;
+        itemMakeVisibleNext(item);
+        radiosGetItemsFromSql(currentItem['next']);
+      }
+    });
+    }
 }
 
 
-
-
 //функция генерирует текст запроса для alaSQL
-function sqlQueryCreate (item) {
-  
+function sqlQueryCreateForFilters (item) {
   //для каждой сущности, нужно учитывать разные фильтры
   //например когда выбираем GENRE (что фотографируешь),
   //то нужно показывать только те, которые есть для выбранного ISO
@@ -146,8 +160,7 @@ function sqlQueryCreate (item) {
   return query;
 }
 
-function sqlQueryCreateResult () {
-  
+function sqlQueryCreateForFiltersResult () {
   //для каждой сущности, нужно учитывать разные фильтры
   //например когда выбираем GENRE (что фотографируешь),
   //то нужно показывать только те, которые есть для выбранного ISO
@@ -163,18 +176,19 @@ function sqlQueryCreateResult () {
         where = where + filter + " = '" + filters_stage[filter] + "' AND ";
       }
     }}
-  where +=1; //в конце остается AND , чтобы долго не мучаться, просто после него пишем 1 — всегда верно
-
-  let query = "SELECT lightDetail, aperture, exposure FROM tab('"+tabFile+"')" + where;
+  where += 'aperture != "-"';
+  let orderBy="order by aperture"; //в конце остается AND , чтобы долго не мучаться, просто после него пишем 1 — всегда верно
+  let query = "SELECT lightDetail, aperture, exposure FROM tab('"+tabFile+"')" + where + orderBy;
   console.log(query);
   return query;
 }
 
 
-
-function getItemsForFilter (itemName) 
+//функция собирает значения для фильтров
+//использует alasql, читает tsv
+function filtersGetItemsFromSql (itemName) 
 {
-  let query = sqlQueryCreate(itemName);
+  let query = sqlQueryCreateForFilters(itemName);
   console.log(query);
   alasql.promise([
       [query]
@@ -185,51 +199,61 @@ function getItemsForFilter (itemName)
   .catch(console.error);
 }
 
-function getItemsForRadios (itemName) 
-{
-  let query = sqlQueryCreate(itemName);
-  console.log(query);
+
+//функция собирает значения для радиобатонов
+//использует alasql, читает tsv
+function radiosGetItemsFromSql (itemName) 
+{ if(!itemName){
+    return 'empty itemName';
+  }
+  let query = sqlQueryCreateForFilters(itemName);
+  // console.log(query);
   alasql.promise([
       [query]
   ]).then(function(results){
     let arrayOfItems = results[0].flat();
+    //результат передаем в функцию ↓
     radiosOptionsActiveList(itemName,arrayOfItems);
   })
   .catch(console.error);
 }
 
-function getItemsForResult (itemName) 
-{
-  let query = '';
-  alasql.promise([
-      [query]
-  ]).then(function(results){
-    let arrayOfItems = results[0].flat();
-    radiosOptionsActiveList(itemName,arrayOfItems);
-  })
-  .catch(console.error);
-}
 
 //сделать следующий блок видимым
 function itemMakeVisibleNext (currentItem){
   let next = mainDict[currentItem]["next"];
-  document.getElementById(mainDict[next]["blockId"]).classList.remove('invisible');
+  if (next){
+    document.getElementById(mainDict[next]["blockId"]).classList.remove('invisible');
+    document.getElementById(mainDict[next]["blockId"]).hidden=false;
+  }
+  //если это последний блок (сейчас это light), то включаем кнопку
+  if (currentItem=='LIGHT'){
+    resultButtonActivate();
+  }
 }
+
 
 //сделать текущий блок видимым
 function itemMakeVisibleCurrent (currentItem){
   document.getElementById(mainDict[currentItem]['blockId']).classList.remove('invisible');
 }
 
+
+//убирает стиль инвизибл и hidden из элементID
 function invisibleRemove(id){
   document.getElementById(id).classList.remove('invisible');
+  document.getElementById(id).hidden=false;
 }
 
-function fillFilterFiltered(item="ISO"){
-  getItemsForFilter(item);
+
+//напрлняет фильтр значениями
+function filterFillOptions(item){
+  filtersGetItemsFromSql(item);
   itemMakeVisibleCurrent(item);
 }
 
+
+//сделать всё видимым сразу (для отладки)
 function AllItemsMakeVisible (){
   for (let item in mainDict){
     itemMakeVisibleCurrent(item);
@@ -249,10 +273,9 @@ function filterCallBackToFillFromSql_(item,options){
 }
 
 
-
 //В самом начале заполняем ISO фильтр
 //filterOptionsFill(isoList,'ISOSelector','ISO плёнки')
-getItemsForFilter ('ISO');
+filtersGetItemsFromSql('ISO');
 
 
 //слушаем изменения в ISO
@@ -274,7 +297,7 @@ ISOSelector.addEventListener("change",
     filterOptionsFill(isoList, selectId, selectedValue); //заполнили, без хедера, выбранным оставили то, что выбрал человек
 
     if (selectedValue) {
-      getItemsForFilter(currentItem['next']);
+      filtersGetItemsFromSql(currentItem['next']);
     }
 
     //itemMakeVisibleNext(item);
@@ -295,16 +318,16 @@ GENRESelector.addEventListener("change",
     let selectId = currentItem['selectId'];       //id селекта
 
     //перезаполняем себя, чтобы убрать «Что фотографируешь?» из выпадайки, так как теперь показываем header
-    getItemsForFilter(item);
+    filtersGetItemsFromSql(item);
     
     //заполнили, без хедера, выбранным оставили то, что выбрал человек
 
     // if (selectedValue) {
-    //   getItemsForFilter(currentItem['next']);
+    //   filtersGetItemsFromSql(currentItem['next']);
     // };
 
     itemMakeVisibleNext(item);
-    getItemsForRadios(currentItem['next']);
+    radiosGetItemsFromSql(currentItem['next']);
   }
 );
 
@@ -322,7 +345,7 @@ PLACESelector.addEventListener("change",
       }
     );
     itemMakeVisibleNext(item);
-    getItemsForRadios(currentItem['next']);
+    radiosGetItemsFromSql(currentItem['next']);
   }
 );
 
@@ -339,18 +362,119 @@ LIGHTSelector.addEventListener("change",
           }
       }
     );
-    document.getElementById('btResult').classList.remove('disabled');
+    resultButtonActivate();
     }
 );
 
+
+//активация кнопки
+function resultButtonActivate(){
+  document.getElementById('btResult').classList.remove('disabled');
+}
+
+
+//лисенер на итоговой кнопке
 btResult.addEventListener("click",
     function(){
+      //открываем попап с результатами
       document.getElementById("result-block").classList.remove("_closed");
+      //получаем результаты. там внутри промиса вызовется функция наполнения
+      sqlGetResult(sqlQueryCreateForFiltersResult());
     }
 );
 
+
+//лисенер на крестике в попапе с результатами
 document.querySelector(".result-popup__close").addEventListener("click",
   function(){
     document.getElementById("result-block").classList.add("_closed");
     }
 );
+
+
+//функция заполнения попапа результатами
+function resultFillValues(results){
+  //на вход массив словарей
+  //[{"lightDetail":"qweqwe","exposure":"1/1000","aperture":"2.3"}]
+
+  // console.log(results);
+  let len = results.length;
+  //если получили 0 результатов, то собираем массив из 1 резльтата,
+  //в котором говорим, что результатов нет
+  if (len == 0) {
+    results = [{
+      "lightDetail": filters_stage["PLACE"] + ", для ISO = " + filters_stage["ISO"] + ", при освещении «" + filters_stage["LIGHT"] + "»\nне нашли подходящей экспо пары",
+      "aperture": "-",
+      "exposure": "-"
+    }];
+  }
+
+  //берем первую пару
+  //для заполнения первой карточки
+  let firstPair = results.pop();
+  firstResult = document.getElementById('res_1');
+  firstResult.querySelector('#res_1_exposure').innerText = firstPair['exposure'];
+  firstResult.querySelector('#res_1_aperture').innerText = firstPair['aperture'];
+  firstResult.querySelector('#res_1_lightDetail').innerText = firstPair['lightDetail'];
+
+  //если результатов больше чем 1, то показываем блок
+  if (len >1){
+    document.getElementById('res_2andMore').hidden=false;
+  }else {document.getElementById('res_2andMore').hidden=true;}
+
+  let i=2;
+  while (results.length && i <8){
+    
+    // console.log(i);
+    let pair = results.pop();
+    let result=document.getElementById('res_'+i);
+    result.hidden=false;
+    for (let item in pair){
+      // console.log('#res_'+i+'_'+item);
+      result.querySelector('#res_'+i+'_'+item).innerText=pair[item];
+    }
+    i++ ;
+  }
+  while (i<8){
+    let result=document.getElementById('res_'+i);
+    result.hidden=true;
+    i++;
+  }
+}
+
+
+//функция получения словаря с результатами
+//результат передается в resultFillValues()
+function sqlGetResult (query) 
+{ 
+  console.log(query);
+  alasql.promise([
+      [query]
+  ]).then(function(results){
+    let arrayOfItems = results[0];
+    console.log(arrayOfItems);
+    resultFillValues(arrayOfItems);
+  })
+  .catch(console.error);
+}
+
+
+//при ресайзе дергаем функцию resizeResultPopup
+window.addEventListener("resize",resizeResultPopup);
+
+
+//меняем размер выпадайки с результатом в зависимости от высоты окна
+function resizeResultPopup(){
+  let heightNew=window.innerHeight;
+  console.log(heightNew);
+  let popup = document.getElementById('result-popup__modal');
+  
+  //в зависимости от высоты окна, меняем размер выпадайки с результатами
+  if(heightNew < 812){
+    popup.classList.remove('result-popup__modal');
+    popup.classList.add('result-popup__modal__small_height');
+  } else{
+    popup.classList.add('result-popup__modal');
+    popup.classList.remove('result-popup__modal__small_height');
+  }
+}

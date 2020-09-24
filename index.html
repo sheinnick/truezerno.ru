@@ -23,9 +23,10 @@
   </head>
 
 <body>
+  
   <main class="container center_block">
     <h1 class="pt-5">Какие настройки выставить, чтобы кадр получился?</h1>
-    <filters>
+    <filters class="pb-5">
     <!-- ISO -->
     <div id="ISOBlock">
       <div class="header-select invisible pt-4" id="headerISOSelect" >ISO плёнки</div>
@@ -43,7 +44,7 @@
       </select>  
     </div>
     
-    <div id="PLACEBlock" class = "invisible">
+    <div id="PLACEBlock" class = "invisible" hidden>
       <h5 class="zerno-header pt-5">
         Где?
       </h5>
@@ -59,7 +60,7 @@
         </div>
     </div>
 
-    <div id="LIGHTBlock" class="invisible">
+    <div id="LIGHTBlock" class="invisible pb-5" hidden>
       <h5 class="zerno-header pt-5">Какой свет?</h5>
       <div class="select-group" id="LIGHTSelector">
         
@@ -95,7 +96,7 @@
                 <path d="M5.09076 5.75L5.95679 6.25" stroke-linecap="round"/>
               </g>
             </svg>
-            <answtxt class="answer_text">Лампы накаливания</answtxt>
+            <answtxt class="answer_text">Лампы<br>накаливания</answtxt>
           </label>
         </div>
 
@@ -124,7 +125,7 @@
                 <path d="M2.36526 17.0761C2.42313 16.9746 2.57687 16.9746 2.63474 17.0761C2.76325 17.3016 2.9667 17.6285 3.16909 17.8309C3.37147 18.0333 3.69843 18.2368 3.92387 18.3653C4.02538 18.4231 4.02538 18.5769 3.92387 18.6347C3.69843 18.7632 3.37147 18.9667 3.16909 19.1691C2.9667 19.3715 2.76325 19.6984 2.63474 19.9239C2.57687 20.0254 2.42313 20.0254 2.36526 19.9239C2.23675 19.6984 2.0333 19.3715 1.83091 19.1691C1.62853 18.9667 1.30157 18.7632 1.07613 18.6347C0.974622 18.5769 0.974622 18.4231 1.07613 18.3653C1.30157 18.2368 1.62853 18.0333 1.83091 17.8309C2.0333 17.6285 2.23675 17.3016 2.36526 17.0761Z" fill="#27242E"/>
               </g>
             </svg>
-            <answtxt class="answer_text">Свечи или<br>гирлянды</answtxt>
+            <answtxt class="answer_text">Свечи<br>или гирлянды</answtxt>
               
           </label>
         </div>  
@@ -155,75 +156,132 @@
 </body>
 
 <!-- окно с результатами -->
- <div id="result-block" class="result-popup ">
-    <div class="result-popup__overlay"></div>
-    <div class="result-popup__modal">
-        <div id="resCloseBtn" class="result-popup__close"></div>
-        
-        <div class="row result__modal__first pl-2 py-1 mb-5">
-            <div class="col-6">
-              <img src='./assets/img/shutter_speed-black-48dp.svg' height="30px" alt='Выдержка' title="Выдержка"> <small class="result__modal__first__titles">выдержка</small><br>1/250</div>
-            <div class="col-6">
-              <img src="./assets/img/camera-black-48dp.svg" height="30px" alt='Диафрагма' title="Диафрагма"> <small class="result__modal__first__titles">диафрагма</small><br>2.5</div>
-            <p class="row-col-6 mb-0 result__modal__first__titles">Light detailes</p>
+ <div id="result-block" class="result-popup _closed">
+   <div class="result-popup__overlay"></div>
+   <div id="result-popup__modal" class="result-popup__modal">
+     <div id="resCloseBtn" class="result-popup__close"></div>
+
+     <div id="res_1" class="row result__modal__first pl-2 py-1 mb-5">
+       <div class="col-6">
+         <img src='./assets/img/shutter_speed-black-48dp.svg' height="30px" alt='Выдержка' title="Выдержка">
+         <small class="result__modal__first__titles">выдержка</small>
+         <p id='res_1_exposure' class="mb-0">1/250</p>
+       </div>
+       <div class="col-6">
+         <img src="./assets/img/camera-black-48dp.svg" height="30px" alt='Диафрагма' title="Диафрагма">
+         <small class="result__modal__first__titles">диафрагма</small>
+           <p id='res_1_aperture' class="mb-0">2.5</p>
           </div>
-      <p class='row pr-0'> Еще можно попробовать</p>
-      <div class='row pr-0'>
-            <div class="col-6">
-              <div class="row result__modal__others  ">
-                <div class="col-6 resShutterspeed">
-                  <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка' title="Выдержка"><br>1/250
-                </div>
-                <div class="col-6 res_aperture">
-                  <img src="./assets/img/camera-black-48dp.svg" height="22px"><br>2.5</div>
-                <p class="row-col-6 mb-0 resOthersComment">second detailes</p>
+       <p id='res_1_lightDetail' class="row-col-6 mb-0 result__modal__first__titles">Light detailes</p>
+     </div>
+     
+     <div id="res_2andMore" class="">
+       <p class='row pr-0'> Еще можно попробовать:</p>
+       <div class='row pr-0'>
+         
+        <div id="res_2" class="col-6">
+           <div class="row result__modal__others mb-3 mr-0">
+             <div class="col-6">
+               <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                 title="Выдержка">
+                 <p id='res_2_exposure' class="mb-0">1/250</p>
+             </div>
+             <div class="col-6">
+               <img src="./assets/img/camera-black-48dp.svg" height="22px">
+               <p id='res_2_aperture' class="mb-0">3.5</p>
               </div>
-  
-            </div>
-  
-  
+             <p id='res_2_lightDetail' class="row-col-6 mb-0 resOthersComment">2 detailes</p>
+           </div>
+
+         </div>
+
+
+         <div id="res_3" class="col-6">
+          <div class="row result__modal__others mb-3 mr-0">
             <div class="col-6">
-              <div class="row col-auto result__modal__others pr-0 ">
-                <div class="col-auto resShutterspeed">
-                  <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка' title="Выдержка"><br>1/250
-                </div>
-                <div class="col-2 res_aperture">
-                  <img src="./assets/img/camera-black-48dp.svg" height="22px"><br>2.5</div>
-                <p class="row-col-6 mb-0 resOthersComment">third detailes</p>
-              </div>
+              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                title="Выдержка">
+                <p id='res_3_exposure' class="mb-0">1/250</p>
             </div>
-      </div>
-  
-      <!-- <div class='row pr-0 pt-2'>
-        <div class="card-res">
-          <div class="row result__modal__others _left ">
-            <div class="col-auto resShutterspeed">
-              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка' title="Выдержка"><br>1/250
-            </div>
-            <div class="col-auto res_aperture">
-              <img src="./assets/img/camera-black-48dp.svg" height="22px"><br>2.5</div>
-            <p class="row-col-6 mb-0 resOthersComment">←↓ detailes</p>
-          </div>
-  
-        </div>
-  
-  
-        <div class="card-res ml-2">
-          <div class="row col-auto result__modal__others pr-0 ">
-            <div class="col-auto resShutterspeed">
-              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка' title="Выдержка"><br>1/250
-            </div>
-            <div class="col-auto res_aperture">
-              <img src="./assets/img/camera-black-48dp.svg" height="22px"><br>2.5</div>
-            <p class="row-col-6 mb-0 resOthersComment">↓→third detailes</p>
+            <div class="col-6">
+              <img src="./assets/img/camera-black-48dp.svg" height="22px">
+              <p id='res_3_aperture' class="mb-0">3.5</p>
+             </div>
+            <p id='res_3_lightDetail' class="row-col-6 mb-0 resOthersComment">3 detailes</p>
           </div>
         </div>
-  </div> -->
-    </div>
-  
-  
-  
-    </div>
+
+        <div id="res_4" class="col-6" hidden>
+          <div class="row result__modal__others mb-3 mr-0">
+            <div class="col-6">
+              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                title="Выдержка">
+                <p id='res_4_exposure' class="mb-0">1/250</p>
+            </div>
+            <div class="col-6">
+              <img src="./assets/img/camera-black-48dp.svg" height="22px">
+              <p id='res_4_aperture' class="mb-0">3.5</p>
+             </div>
+            <p id='res_4_lightDetail' class="row-col-6 mb-0 resOthersComment">4 detailes</p>
+          </div>
+        </div>
+
+        <div id="res_5" class="col-6">
+          <div class="row result__modal__others mb-3 mr-0">
+            <div class="col-6">
+              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                title="Выдержка">
+                <p id='res_5_exposure' class="mb-0">1/250</p>
+            </div>
+            <div class="col-6">
+              <img src="./assets/img/camera-black-48dp.svg" height="22px">
+              <p id='res_5_aperture' class="mb-0">3.5</p>
+             </div>
+            <p id='res_5_lightDetail' class="row-col-6 mb-0 resOthersComment">5 detailes</p>
+          </div>
+        </div>
+
+        <div id="res_6" class="col-6">
+          <div class="row result__modal__others mb-3 mr-0">
+            <div class="col-6">
+              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                title="Выдержка">
+                <p id='res_6_exposure' class="mb-0">1/250</p>
+            </div>
+            <div class="col-6">
+              <img src="./assets/img/camera-black-48dp.svg" height="22px">
+              <p id='res_6_aperture' class="mb-0">3.5</p>
+             </div>
+            <p id='res_6_lightDetail' class="row-col-6 mb-0 resOthersComment">6 detailes</p>
+          </div>
+        </div>
+
+        <div id="res_7" class="col-6">
+          <div class="row result__modal__others mb-3 mr-0">
+            <div class="col-6">
+              <img src='./assets/img/shutter_speed-black-48dp.svg' height="22px" alt='Выдержка'
+                title="Выдержка">
+                <p id='res_7_exposure' class="mb-0">1/250</p>
+            </div>
+            <div class="col-6">
+              <img src="./assets/img/camera-black-48dp.svg" height="22px">
+              <p id='res_7_aperture' class="mb-0">3.5</p>
+             </div>
+            <p id='res_7_lightDetail' class="row-col-6 mb-0 resOthersComment">7 detailes</p>
+          </div>
+        </div>
+
+
+
+        </div > <!-- id="res2andMore"   -->
+
+
+
+   </div>
+
+
+
+ </div>
   
   <script src="main.js"></script>
   

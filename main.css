@@ -12,6 +12,9 @@ body{
     color: #27242E;
     font-family: Manrope;
     font-style: normal;
+    /* box-sizing: border-box;
+    position: relative; */
+    
 }
 
 main{
@@ -19,38 +22,41 @@ main{
     /* left: calc(50% - 214px); */
     background: white;
     box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0; 
-    right: 0;
-    bottom: 0; 
+    position: relative;
+    /* top: 0; */
+    /* left: 0; 
+    right: 0; */
+    /* bottom: 0;  */
+    min-height: 100vh;
 }
+
 
 .center_block{
   max-width: 375px !important;
+  /* min-height: 812px !important; */
   /* left: calc(50% - 214px); */
   background: white;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0; 
-  right: 0;
-  bottom: 0;
+  /* box-sizing: border-box; */
+  /* position: relative; */
+  /* left: 0; 
+  right: 0; */
+  /* top: 0; */
+  /* bottom: 0; */
   box-shadow: 0 0 0 1em black;
 }
 
 
 
-/* .form-select:focus {
+.form-select:focus {
   border-color: #8bbafe;
   outline: 0;
   box-shadow : 0 0 0 0.15rem rgba(143, 0, 194, 0.09);
-} */
-/* .form-check-input:focus {
+}
+.form-check-input:focus {
   border-color: #8bbafe;
   outline: 0;
   box-shadow: 0 0 0 0.15rem rgba(143, 0, 194, 0.09);
-} */
+}
 
 .zerno-header{
     /* font-family: Manrope;
@@ -285,12 +291,22 @@ input:hover {
   border-radius: 27px 27px 0 0;
   width: 375px;
   margin-top: 30vh;
-  
-  
   position: relative;
-   left: calc(50% - 188px);
-    /* position: relative; */
+  left: calc(50% - 188px);
   }
+
+  .result-popup__modal__small_height{
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    z-index: 2;
+    padding: 40px 30px 25px;
+    background-color: #fff;
+    border-radius: 27px 27px 0 0;
+    width: 375px;
+    margin-top: 10vh;
+    position: relative;
+    left: calc(50% - 188px);
+    }
 
   .result-popup__close{
     color: #222b55;
