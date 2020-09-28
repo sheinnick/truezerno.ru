@@ -380,6 +380,7 @@ function resultButtonActivate(){
 //лисенер на итоговой кнопке
 btResult.addEventListener("click",
     function(){
+      dataLayer.push(filters_stage);
       //открываем попап с результатами
       document.getElementById("result-block").classList.remove("_closed");
       //получаем результаты. там внутри промиса вызовется функция наполнения
