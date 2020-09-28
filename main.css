@@ -28,8 +28,31 @@ main{
     right: 0; */
     /* bottom: 0;  */
     min-height: 100vh;
+
 }
 
+.lightblock{
+  padding-bottom: 75px;
+}
+
+
+.h_right {
+  flex-grow: 1;
+  text-align: right;
+  font-size: 12px;
+}
+
+.h_left {
+  flex-grow: 1;
+  text-align: left;
+  
+}
+
+.park {
+  font-style: italic;
+  text-transform: uppercase;
+  color: currentcolor;
+}
 
 .center_block{
   max-width: 375px !important;
@@ -81,7 +104,7 @@ main{
   
 .fixed-bottom{
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   max-inline-size: 343px;
   border-radius: 45px;
   border: 1px white;
@@ -127,7 +150,7 @@ main{
 .form__answer {
 	display: inline-block;
 	box-sizing: border-box;
-	margin: 0px 10px 10px 0px;
+	margin: 0px 5px 10px 0px;
   text-align: center; 
   vertical-align: bottom;
 }
@@ -140,7 +163,7 @@ main{
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
   transition: e .5s ease-in-out;
-  width: 150px;
+  width: 130px;
 	height: 90px;
 
 }
@@ -265,7 +288,7 @@ input:hover {
     right: 0;
     bottom: 0;
     z-index: 8999;
-    display: flex;
+    display: flex ;
     
     box-sizing: border-box;
     backdrop-filter: blur(5px);
@@ -302,11 +325,16 @@ input:hover {
     padding: 40px 30px 25px;
     background-color: #fff;
     border-radius: 27px 27px 0 0;
-    width: 375px;
-    margin-top: 10vh;
+    width: 320px;
+    margin-top: 2vh;
     position: relative;
-    left: calc(50% - 188px);
+    left: calc(50% - 160px);
     }
+
+    .result-popup__modal__small_height .result__modal__first{
+    font-size: 25px;
+    }
+
 
   .result-popup__close{
     color: #222b55;
@@ -325,13 +353,16 @@ input:hover {
     border-radius: 50%;
     cursor: pointer;
   }
+
   .result-popup__close:hover {
     transform: scale(1.1);
-}
+  }
 
 
     .result-popup._closed{
-      top:-999999px;height:0;overflow:hidden
+      top:-999999px;
+      height:0;
+      overflow:hidden
     }
 
     .result__modal__first{
@@ -345,7 +376,6 @@ input:hover {
     .result__modal__first__titles{
       font-size: 18px;
     }
-
 
     .resFirstComment{
       font-size: 30px;

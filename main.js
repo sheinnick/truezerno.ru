@@ -179,7 +179,7 @@ function sqlQueryCreateForFiltersResult () {
   where += 'aperture != "-"';
   let orderBy="order by aperture"; //в конце остается AND , чтобы долго не мучаться, просто после него пишем 1 — всегда верно
   let query = "SELECT lightDetail, aperture, exposure FROM tab('"+tabFile+"')" + where + orderBy;
-  console.log(query);
+  // console.log(query);
   return query;
 }
 
@@ -189,14 +189,16 @@ function sqlQueryCreateForFiltersResult () {
 function filtersGetItemsFromSql (itemName) 
 {
   let query = sqlQueryCreateForFilters(itemName);
-  console.log(query);
+  // console.log(query);
   alasql.promise([
       [query]
   ]).then(function(results){
     let arrayOfItems = results[0].flat();
     filterCallBackToFillFromSql_(itemName,arrayOfItems);
   })
-  .catch(console.error);
+  .catch(
+    // console.error
+    );
 }
 
 
@@ -215,7 +217,9 @@ function radiosGetItemsFromSql (itemName)
     //результат передаем в функцию ↓
     radiosOptionsActiveList(itemName,arrayOfItems);
   })
-  .catch(console.error);
+  .catch(
+    // console.error
+    );
 }
 
 
@@ -258,7 +262,7 @@ function AllItemsMakeVisible (){
   for (let item in mainDict){
     itemMakeVisibleCurrent(item);
   }
-  console.log('AllItemsMakeVisible');
+  // console.log('AllItemsMakeVisible');
 }
 
 
@@ -268,7 +272,7 @@ function filterCallBackToFillFromSql_(item,options){
   let currentItem = mainDict[item];
   let selected = filters_stage[item] ? filters_stage[item] : currentItem['selectedDefault'];
   filterOptionsFill(options,currentItem['selectId'],selected);
-  console.log('test2');
+  // console.log('test2');
   itemMakeVisibleCurrent(item);
 }
 
@@ -447,15 +451,17 @@ function resultFillValues(results){
 //результат передается в resultFillValues()
 function sqlGetResult (query) 
 { 
-  console.log(query);
+  // console.log(query);
   alasql.promise([
       [query]
   ]).then(function(results){
     let arrayOfItems = results[0];
-    console.log(arrayOfItems);
+    // console.log(arrayOfItems);
     resultFillValues(arrayOfItems);
   })
-  .catch(console.error);
+  .catch(
+    // console.error
+    );
 }
 
 
@@ -466,7 +472,7 @@ window.addEventListener("resize",resizeResultPopup);
 //меняем размер выпадайки с результатом в зависимости от высоты окна
 function resizeResultPopup(){
   let heightNew=window.innerHeight;
-  console.log(heightNew);
+  // console.log(heightNew);
   let popup = document.getElementById('result-popup__modal');
   
   //в зависимости от высоты окна, меняем размер выпадайки с результатами
@@ -478,3 +484,7 @@ function resizeResultPopup(){
     popup.classList.remove('result-popup__modal__small_height');
   }
 }
+
+
+
+resizeResultPopup()
