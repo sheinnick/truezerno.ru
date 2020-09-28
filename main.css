@@ -12,6 +12,7 @@ body{
     color: #27242E;
     font-family: Manrope;
     font-style: normal;
+    font: Manrope;
     /* box-sizing: border-box;
     position: relative; */
     
@@ -404,7 +405,7 @@ input:hover {
     }
     
     .intro{
-      margin-left: 30px;
+      margin-left: 15px;
       padding-bottom: 70px;
     }
 
@@ -423,6 +424,6 @@ input:hover {
       /* or 22px */
 
       letter-spacing: 0.02em;
-      max-width: 290px;
+      max-width: 320px;
       
     }

@@ -427,7 +427,7 @@ function resultFillValues(results){
 
   for (let pair in results){
     // console.log(results[pair]['aperture'])
-    if(results[pair]['aperture']==0){results[pair]['aperture']='-'};
+    if(results[pair]['aperture']==0){results[pair]['aperture']='-';}
   }
 
   //берем первую пару
@@ -504,4 +504,4 @@ function resizeResultPopup(){
 
 
 
-resizeResultPopup()
+resizeResultPopup();
