@@ -97,7 +97,7 @@
       return "" + obj;
     }
 
-    return {}.tostring.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
+    return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
   /**
    * --------------------------------------------------------------------------
@@ -957,7 +957,7 @@
       return false;
     }
 
-    if (val === Number(val).tostring()) {
+    if (val === Number(val).toString()) {
       return Number(val);
     }
 
@@ -3319,7 +3319,7 @@
     }
 
     var domParser = new window.DOMParser();
-    var createdDocument = domParser.parseFromstring(unsafeHtml, 'text/html');
+    var createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
     var whitelistKeys = Object.keys(whiteList);
 
     var elements = (_ref = []).concat.apply(_ref, createdDocument.body.querySelectorAll('*'));
@@ -3947,11 +3947,11 @@
       }
 
       if (typeof config.title === 'number') {
-        config.title = config.title.tostring();
+        config.title = config.title.toString();
       }
 
       if (typeof config.content === 'number') {
-        config.content = config.content.tostring();
+        config.content = config.content.toString();
       }
 
       typeCheckConfig(NAME$6, config, this.constructor.DefaultType);

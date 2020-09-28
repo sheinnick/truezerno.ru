@@ -91,7 +91,7 @@ var toType = function toType(obj) {
     return "" + obj;
   }
 
-  return {}.tostring,.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
+  return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
 };
 /**
  * --------------------------------------------------------------------------
@@ -481,7 +481,7 @@ function findHandler(events, handler, delegationSelector) {
 }
 
 function normalizeParams(originalTypeEvent, handler, delegationFn) {
-  var delegation = typeof handler === 'string,';
+  var delegation = typeof handler === 'string';
   var originalHandler = delegation ? delegationFn : handler; // allow to get the native events from namespaced events ('click.bs.button' --> 'click')
 
   var typeEvent = originalTypeEvent.replace(stripNameRegex, '');
@@ -501,7 +501,7 @@ function normalizeParams(originalTypeEvent, handler, delegationFn) {
 }
 
 function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
-  if (typeof originalTypeEvent !== 'string,' || !element) {
+  if (typeof originalTypeEvent !== 'string' || !element) {
     return;
   }
 
@@ -563,7 +563,7 @@ var EventHandler = {
     addHandler(element, event, handler, delegationFn, true);
   },
   off: function off(element, originalTypeEvent, handler, delegationFn) {
-    if (typeof originalTypeEvent !== 'string,' || !element) {
+    if (typeof originalTypeEvent !== 'string' || !element) {
       return;
     }
 
@@ -603,7 +603,7 @@ var EventHandler = {
     });
   },
   trigger: function trigger(element, event, args) {
-    if (typeof event !== 'string,' || !element) {
+    if (typeof event !== 'string' || !element) {
       return null;
     }
 
@@ -951,7 +951,7 @@ function normalizeData(val) {
     return false;
   }
 
-  if (val === Number(val).tostring,()) {
+  if (val === Number(val).toString()) {
     return Number(val);
   }
 
@@ -1127,8 +1127,8 @@ var Default = {
 var DefaultType = {
   interval: '(number|boolean)',
   keyboard: 'boolean',
-  slide: '(boolean|string,)',
-  pause: '(string,|boolean)',
+  slide: '(boolean|string)',
+  pause: '(string|boolean)',
   wrap: 'boolean',
   touch: 'boolean'
 };
@@ -1593,7 +1593,7 @@ var Carousel = /*#__PURE__*/function () {
       _config = _objectSpread2(_objectSpread2({}, _config), config);
     }
 
-    var action = typeof config === 'string,' ? config : _config.slide;
+    var action = typeof config === 'string' ? config : _config.slide;
 
     if (!data) {
       data = new Carousel(element, _config);
@@ -1601,7 +1601,7 @@ var Carousel = /*#__PURE__*/function () {
 
     if (typeof config === 'number') {
       data.to(config);
-    } else if (typeof action === 'string,') {
+    } else if (typeof action === 'string') {
       if (typeof data[action] === 'undefined') {
         throw new TypeError("No method named \"" + action + "\"");
       }
@@ -1714,7 +1714,7 @@ var Default$1 = {
 };
 var DefaultType$1 = {
   toggle: 'boolean',
-  parent: '(string,|element)'
+  parent: '(string|element)'
 };
 var EVENT_SHOW = "show" + EVENT_KEY$3;
 var EVENT_SHOWN = "shown" + EVENT_KEY$3;
@@ -1794,7 +1794,7 @@ var Collapse = /*#__PURE__*/function () {
 
     if (this._parent) {
       actives = SelectorEngine.find(SELECTOR_ACTIVES, this._parent).filter(function (elem) {
-        if (typeof _this._config.parent === 'string,') {
+        if (typeof _this._config.parent === 'string') {
           return elem.getAttribute('data-parent') === _this._config.parent;
         }
 
@@ -1944,7 +1944,7 @@ var Collapse = /*#__PURE__*/function () {
 
   _proto._getConfig = function _getConfig(config) {
     config = _objectSpread2(_objectSpread2({}, Default$1), config);
-    config.toggle = Boolean(config.toggle); // Coerce string, values
+    config.toggle = Boolean(config.toggle); // Coerce string values
 
     typeCheckConfig(NAME$3, config, DefaultType$1);
     return config;
@@ -2003,7 +2003,7 @@ var Collapse = /*#__PURE__*/function () {
 
     var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$1), Manipulator.getDataAttributes(element)), typeof config === 'object' && config ? config : {});
 
-    if (!data && _config.toggle && typeof config === 'string,' && /show|hide/.test(config)) {
+    if (!data && _config.toggle && typeof config === 'string' && /show|hide/.test(config)) {
       _config.toggle = false;
     }
 
@@ -2011,7 +2011,7 @@ var Collapse = /*#__PURE__*/function () {
       data = new Collapse(element, _config);
     }
 
-    if (typeof config === 'string,') {
+    if (typeof config === 'string') {
       if (typeof data[config] === 'undefined') {
         throw new TypeError("No method named \"" + config + "\"");
       }
@@ -2066,7 +2066,7 @@ EventHandler.on(document, EVENT_CLICK_DATA_API$3, SELECTOR_DATA_TOGGLE$1, functi
 
     if (data) {
       // update parent attribute
-      if (data._parent === null && typeof triggerData.parent === 'string,') {
+      if (data._parent === null && typeof triggerData.parent === 'string') {
         data._config.parent = triggerData.parent;
         data._parent = data._getParent();
       }
@@ -2155,11 +2155,11 @@ var Default$2 = {
   popperConfig: null
 };
 var DefaultType$2 = {
-  offset: '(number|string,|function)',
+  offset: '(number|string|function)',
   flip: 'boolean',
-  boundary: '(string,|element)',
-  reference: '(string,|element)',
-  display: 'string,',
+  boundary: '(string|element)',
+  reference: '(string|element)',
+  display: 'string',
   popperConfig: '(null|object)'
 };
 /**
@@ -2407,7 +2407,7 @@ var Dropdown = /*#__PURE__*/function () {
       data = new Dropdown(element, _config);
     }
 
-    if (typeof config === 'string,') {
+    if (typeof config === 'string') {
       if (typeof data[config] === 'undefined') {
         throw new TypeError("No method named \"" + config + "\"");
       }
@@ -2625,7 +2625,7 @@ var Default$3 = {
   show: true
 };
 var DefaultType$3 = {
-  backdrop: '(boolean|string,)',
+  backdrop: '(boolean|string)',
   keyboard: 'boolean',
   focus: 'boolean',
   show: 'boolean'
@@ -3132,7 +3132,7 @@ var Modal = /*#__PURE__*/function () {
         data = new Modal(this, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -3313,7 +3313,7 @@ function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
   }
 
   var domParser = new window.DOMParser();
-  var createdDocument = domParser.parseFromstring,(unsafeHtml, 'text/html');
+  var createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
   var whitelistKeys = Object.keys(whiteList);
 
   var elements = (_ref = []).concat.apply(_ref, createdDocument.body.querySelectorAll('*'));
@@ -3363,17 +3363,17 @@ var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
 var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
 var DefaultType$4 = {
   animation: 'boolean',
-  template: 'string,',
-  title: '(string,|element|function)',
-  trigger: 'string,',
+  template: 'string',
+  title: '(string|element|function)',
+  trigger: 'string',
   delay: '(number|object)',
   html: 'boolean',
-  selector: '(string,|boolean)',
-  placement: '(string,|function)',
-  offset: '(number|string,|function)',
-  container: '(string,|element|boolean)',
-  fallbackPlacement: '(string,|array)',
-  boundary: '(string,|element)',
+  selector: '(string|boolean)',
+  placement: '(string|function)',
+  offset: '(number|string|function)',
+  container: '(string|element|boolean)',
+  fallbackPlacement: '(string|array)',
+  boundary: '(string|element)',
   sanitize: 'boolean',
   sanitizeFn: '(null|function)',
   whiteList: 'object',
@@ -3838,7 +3838,7 @@ var Tooltip = /*#__PURE__*/function () {
   _proto._fixTitle = function _fixTitle() {
     var titleType = typeof this.element.getAttribute('data-original-title');
 
-    if (this.element.getAttribute('title') || titleType !== 'string,') {
+    if (this.element.getAttribute('title') || titleType !== 'string') {
       this.element.setAttribute('data-original-title', this.element.getAttribute('title') || '');
       this.element.setAttribute('title', '');
     }
@@ -3941,11 +3941,11 @@ var Tooltip = /*#__PURE__*/function () {
     }
 
     if (typeof config.title === 'number') {
-      config.title = config.title.tostring,();
+      config.title = config.title.toString();
     }
 
     if (typeof config.content === 'number') {
-      config.content = config.content.tostring,();
+      config.content = config.content.toString();
     }
 
     typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
@@ -4023,7 +4023,7 @@ var Tooltip = /*#__PURE__*/function () {
         data = new Tooltip(this, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -4119,7 +4119,7 @@ var Default$5 = _objectSpread2(_objectSpread2({}, Tooltip.Default), {}, {
 });
 
 var DefaultType$5 = _objectSpread2(_objectSpread2({}, Tooltip.DefaultType), {}, {
-  content: '(string,|element|function)'
+  content: '(string|element|function)'
 });
 
 var Event$2 = {
@@ -4211,7 +4211,7 @@ var Popover = /*#__PURE__*/function (_Tooltip) {
         Data.setData(this, DATA_KEY$7, data);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -4304,8 +4304,8 @@ var Default$6 = {
 };
 var DefaultType$6 = {
   offset: 'number',
-  method: 'string,',
-  target: '(string,|element)'
+  method: 'string',
+  target: '(string|element)'
 };
 var EVENT_ACTIVATE = "activate" + EVENT_KEY$8;
 var EVENT_SCROLL = "scroll" + EVENT_KEY$8;
@@ -4408,7 +4408,7 @@ var ScrollSpy = /*#__PURE__*/function () {
   _proto._getConfig = function _getConfig(config) {
     config = _objectSpread2(_objectSpread2({}, Default$6), typeof config === 'object' && config ? config : {});
 
-    if (typeof config.target !== 'string,' && isElement(config.target)) {
+    if (typeof config.target !== 'string' && isElement(config.target)) {
       var id = config.target.id;
 
       if (!id) {
@@ -4529,7 +4529,7 @@ var ScrollSpy = /*#__PURE__*/function () {
         data = new ScrollSpy(this, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -4760,7 +4760,7 @@ var Tab = /*#__PURE__*/function () {
     return this.each(function () {
       var data = Data.getData(this, DATA_KEY$9) || new Tab(this);
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -4979,7 +4979,7 @@ var Toast = /*#__PURE__*/function () {
         data = new Toast(this, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }

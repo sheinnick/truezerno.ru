@@ -95,7 +95,7 @@
       return "" + obj;
     }
 
-    return {}.tostring,.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
+    return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
   /**
    * --------------------------------------------------------------------------
@@ -485,7 +485,7 @@
   }
 
   function normalizeParams(originalTypeEvent, handler, delegationFn) {
-    var delegation = typeof handler === 'string,';
+    var delegation = typeof handler === 'string';
     var originalHandler = delegation ? delegationFn : handler; // allow to get the native events from namespaced events ('click.bs.button' --> 'click')
 
     var typeEvent = originalTypeEvent.replace(stripNameRegex, '');
@@ -505,7 +505,7 @@
   }
 
   function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
-    if (typeof originalTypeEvent !== 'string,' || !element) {
+    if (typeof originalTypeEvent !== 'string' || !element) {
       return;
     }
 
@@ -567,7 +567,7 @@
       addHandler(element, event, handler, delegationFn, true);
     },
     off: function off(element, originalTypeEvent, handler, delegationFn) {
-      if (typeof originalTypeEvent !== 'string,' || !element) {
+      if (typeof originalTypeEvent !== 'string' || !element) {
         return;
       }
 
@@ -607,7 +607,7 @@
       });
     },
     trigger: function trigger(element, event, args) {
-      if (typeof event !== 'string,' || !element) {
+      if (typeof event !== 'string' || !element) {
         return null;
       }
 
@@ -955,7 +955,7 @@
       return false;
     }
 
-    if (val === Number(val).tostring,()) {
+    if (val === Number(val).toString()) {
       return Number(val);
     }
 
@@ -1131,8 +1131,8 @@
   var DefaultType = {
     interval: '(number|boolean)',
     keyboard: 'boolean',
-    slide: '(boolean|string,)',
-    pause: '(string,|boolean)',
+    slide: '(boolean|string)',
+    pause: '(string|boolean)',
     wrap: 'boolean',
     touch: 'boolean'
   };
@@ -1597,7 +1597,7 @@
         _config = _objectSpread2(_objectSpread2({}, _config), config);
       }
 
-      var action = typeof config === 'string,' ? config : _config.slide;
+      var action = typeof config === 'string' ? config : _config.slide;
 
       if (!data) {
         data = new Carousel(element, _config);
@@ -1605,7 +1605,7 @@
 
       if (typeof config === 'number') {
         data.to(config);
-      } else if (typeof action === 'string,') {
+      } else if (typeof action === 'string') {
         if (typeof data[action] === 'undefined') {
           throw new TypeError("No method named \"" + action + "\"");
         }
@@ -1718,7 +1718,7 @@
   };
   var DefaultType$1 = {
     toggle: 'boolean',
-    parent: '(string,|element)'
+    parent: '(string|element)'
   };
   var EVENT_SHOW = "show" + EVENT_KEY$3;
   var EVENT_SHOWN = "shown" + EVENT_KEY$3;
@@ -1798,7 +1798,7 @@
 
       if (this._parent) {
         actives = SelectorEngine.find(SELECTOR_ACTIVES, this._parent).filter(function (elem) {
-          if (typeof _this._config.parent === 'string,') {
+          if (typeof _this._config.parent === 'string') {
             return elem.getAttribute('data-parent') === _this._config.parent;
           }
 
@@ -1948,7 +1948,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread2(_objectSpread2({}, Default$1), config);
-      config.toggle = Boolean(config.toggle); // Coerce string, values
+      config.toggle = Boolean(config.toggle); // Coerce string values
 
       typeCheckConfig(NAME$3, config, DefaultType$1);
       return config;
@@ -2007,7 +2007,7 @@
 
       var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$1), Manipulator.getDataAttributes(element)), typeof config === 'object' && config ? config : {});
 
-      if (!data && _config.toggle && typeof config === 'string,' && /show|hide/.test(config)) {
+      if (!data && _config.toggle && typeof config === 'string' && /show|hide/.test(config)) {
         _config.toggle = false;
       }
 
@@ -2015,7 +2015,7 @@
         data = new Collapse(element, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -2070,7 +2070,7 @@
 
       if (data) {
         // update parent attribute
-        if (data._parent === null && typeof triggerData.parent === 'string,') {
+        if (data._parent === null && typeof triggerData.parent === 'string') {
           data._config.parent = triggerData.parent;
           data._parent = data._getParent();
         }
@@ -2189,7 +2189,7 @@
    */
   function isFunction(functionToCheck) {
     var getType = {};
-    return functionToCheck && getType.tostring,.call(functionToCheck) === '[object Function]';
+    return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
   }
 
   /**
@@ -2197,7 +2197,7 @@
    * @method
    * @memberof Popper.Utils
    * @argument {Eement} element
-   * @argument {string,} property
+   * @argument {String} property
    */
   function getStyleComputedProperty(element, property) {
     if (element.nodeType !== 1) {
@@ -2398,7 +2398,7 @@
    * @method
    * @memberof Popper.Utils
    * @argument {Element} element
-   * @argument {string,} side `top` or `left`
+   * @argument {String} side `top` or `left`
    * @returns {number} amount of scrolled pixels
    */
   function getScroll(element) {
@@ -2444,7 +2444,7 @@
    * @memberof Popper.Utils
    * @param {CSSStyleDeclaration} styles
    * Result of `getStyleComputedProperty` on the given element
-   * @param {string,} axis - `x` or `y`
+   * @param {String} axis - `x` or `y`
    * @return {number} borders - The borders size of the given axis
    */
 
@@ -2885,8 +2885,8 @@
    * Get the opposite placement of the given one
    * @method
    * @memberof Popper.Utils
-   * @argument {string,} placement
-   * @returns {string,} flipped placement
+   * @argument {String} placement
+   * @returns {String} flipped placement
    */
   function getOppositePlacement(placement) {
     var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
@@ -2902,7 +2902,7 @@
    * @param {Object} position - CSS position the Popper will get applied
    * @param {HTMLElement} popper - the popper element
    * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
-   * @param {string,} placement - one of the valid placement options
+   * @param {String} placement - one of the valid placement options
    * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
    */
   function getPopperOffsets(popper, referenceOffsets, placement) {
@@ -2984,7 +2984,7 @@
    * @memberof Popper.Utils
    * @param {dataObject} data
    * @param {Array} modifiers
-   * @param {string,} ends - Optional modifier name used as stopper
+   * @param {String} ends - Optional modifier name used as stopper
    * @returns {dataObject}
    */
   function runModifiers(modifiers, data, ends) {
@@ -3081,8 +3081,8 @@
    * Get the prefixed supported property name
    * @method
    * @memberof Popper.Utils
-   * @argument {string,} property (camelCase)
-   * @returns {string,} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+   * @argument {String} property (camelCase)
+   * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
    */
   function getSupportedPropertyName(property) {
     var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
@@ -3478,8 +3478,8 @@
    * @method
    * @memberof Popper.Utils
    * @param {Array} modifiers - list of modifiers
-   * @param {string,} requestingName - name of requesting modifier
-   * @param {string,} requestedName - name of requested modifier
+   * @param {String} requestingName - name of requesting modifier
+   * @param {String} requestedName - name of requested modifier
    * @returns {Boolean}
    */
   function isModifierRequired(modifiers, requestingName, requestedName) {
@@ -3517,8 +3517,8 @@
 
     var arrowElement = options.element;
 
-    // if arrowElement is a string,, suppose it's a CSS selector
-    if (typeof arrowElement === 'string,') {
+    // if arrowElement is a string, suppose it's a CSS selector
+    if (typeof arrowElement === 'string') {
       arrowElement = data.instance.popper.querySelector(arrowElement);
 
       // if arrowElement is not found, don't run the modifier
@@ -3586,8 +3586,8 @@
    * Get the opposite placement variation of the given one
    * @method
    * @memberof Popper.Utils
-   * @argument {string,} placement variation
-   * @returns {string,} flipped placement variation
+   * @argument {String} placement variation
+   * @returns {String} flipped placement variation
    */
   function getOppositeVariation(variation) {
     if (variation === 'end') {
@@ -3624,7 +3624,7 @@
    *
    * @static
    * @type {Array}
-   * @enum {string,}
+   * @enum {String}
    * @readonly
    * @method placements
    * @memberof Popper
@@ -3640,7 +3640,7 @@
    *
    * @method
    * @memberof Popper.Utils
-   * @argument {string,} placement - A valid placement (it accepts variations)
+   * @argument {String} placement - A valid placement (it accepts variations)
    * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
    * @returns {Array} placements including their variations
    */
@@ -3785,16 +3785,16 @@
   }
 
   /**
-   * Converts a string, containing value + unit into a px value number
+   * Converts a string containing value + unit into a px value number
    * @function
    * @memberof {modifiers~offset}
    * @private
-   * @argument {string,} str - Value + unit string,
-   * @argument {string,} measurement - `height` or `width`
+   * @argument {String} str - Value + unit string
+   * @argument {String} measurement - `height` or `width`
    * @argument {Object} popperOffsets
    * @argument {Object} referenceOffsets
-   * @returns {Number|string,}
-   * Value in pixels, or original string, if no values were extracted
+   * @returns {Number|String}
+   * Value in pixels, or original string if no values were extracted
    */
   function toValue(str, measurement, popperOffsets, referenceOffsets) {
     // separate value from unit
@@ -3838,14 +3838,14 @@
   }
 
   /**
-   * Parse an `offset` string, to extrapolate `x` and `y` numeric offsets.
+   * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
    * @function
    * @memberof {modifiers~offset}
    * @private
-   * @argument {string,} offset
+   * @argument {String} offset
    * @argument {Object} popperOffsets
    * @argument {Object} referenceOffsets
-   * @argument {string,} basePlacement
+   * @argument {String} basePlacement
    * @returns {Array} a two cells array with x and y offsets in numbers
    */
   function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
@@ -3856,13 +3856,13 @@
     // will use the other one
     var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
 
-    // Split the offset string, to obtain a list of values and operands
+    // Split the offset string to obtain a list of values and operands
     // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
     var fragments = offset.split(/(\+|\-)/).map(function (frag) {
       return frag.trim();
     });
 
-    // Detect if the offset string, contains a pair of values or a single one
+    // Detect if the offset string contains a pair of values or a single one
     // they could be separated by comma or space
     var divider = fragments.indexOf(find$1(fragments, function (frag) {
       return frag.search(/,|\s/) !== -1;
@@ -3898,7 +3898,7 @@
           return a.concat(b);
         }
       }, [])
-      // Here we convert the string, values into number values (in px)
+      // Here we convert the string values into number values (in px)
       .map(function (str) {
         return toValue(str, measurement, popperOffsets, referenceOffsets);
       });
@@ -3920,7 +3920,7 @@
    * @memberof Modifiers
    * @argument {Object} data - The data object generated by update method
    * @argument {Object} options - Modifiers configuration and options
-   * @argument {Number|string,} options.offset=0
+   * @argument {Number|String} options.offset=0
    * The offset value as described in the modifier description
    * @returns {Object} The data object, properly modified
    */
@@ -4179,8 +4179,8 @@
      * This means that if the placement is `top` or `bottom`, the length will be the
      * `width`. In case of `left` or `right`, it will be the `height`.
      *
-     * You can provide a single value (as `Number` or `string,`), or a pair of values
-     * as `string,` divided by a comma or one (or more) white spaces.<br />
+     * You can provide a single value (as `Number` or `String`), or a pair of values
+     * as `String` divided by a comma or one (or more) white spaces.<br />
      * The latter is a deprecated method because it leads to confusion and will be
      * removed in v2.<br />
      * Additionally, it accepts additions and subtractions between different units.
@@ -4210,7 +4210,7 @@
       enabled: true,
       /** @prop {ModifierFn} */
       fn: offset,
-      /** @prop {Number|string,} offset=0
+      /** @prop {Number|String} offset=0
        * The offset value as described in the modifier description
        */
       offset: 0
@@ -4254,7 +4254,7 @@
        */
       padding: 5,
       /**
-       * @prop {string,|HTMLElement} boundariesElement='scrollParent'
+       * @prop {String|HTMLElement} boundariesElement='scrollParent'
        * Boundaries used by the modifier. Can be `scrollParent`, `window`,
        * `viewport` or any DOM element.
        */
@@ -4296,7 +4296,7 @@
       enabled: true,
       /** @prop {ModifierFn} */
       fn: arrow,
-      /** @prop {string,|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+      /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
       element: '[x-arrow]'
     },
 
@@ -4319,7 +4319,7 @@
       /** @prop {ModifierFn} */
       fn: flip,
       /**
-       * @prop {string,|Array} behavior='flip'
+       * @prop {String|Array} behavior='flip'
        * The behavior used to change the popper's placement. It can be one of
        * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
        * placements (with optional variations)
@@ -4331,7 +4331,7 @@
        */
       padding: 5,
       /**
-       * @prop {string,|HTMLElement} boundariesElement='viewport'
+       * @prop {String|HTMLElement} boundariesElement='viewport'
        * The element which will define the boundaries of the popper position.
        * The popper will never be placed outside of the defined boundaries
        * (except if `keepTogether` is enabled)
@@ -4419,13 +4419,13 @@
        */
       gpuAcceleration: true,
       /**
-       * @prop {string,} [x='bottom']
+       * @prop {string} [x='bottom']
        * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
        * Change this if your popper should grow in a direction different from `bottom`
        */
       x: 'bottom',
       /**
-       * @prop {string,} [x='left']
+       * @prop {string} [x='left']
        * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
        * Change this if your popper should grow in a direction different from `right`
        */
@@ -4471,8 +4471,8 @@
    * This object is passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
    * @name dataObject
    * @property {Object} data.instance The Popper.js instance
-   * @property {string,} data.placement Placement applied to popper
-   * @property {string,} data.originalPlacement Placement originally defined on init
+   * @property {String} data.placement Placement applied to popper
+   * @property {String} data.originalPlacement Placement originally defined on init
    * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
    * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper
    * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
@@ -4773,11 +4773,11 @@
     popperConfig: null
   };
   var DefaultType$2 = {
-    offset: '(number|string,|function)',
+    offset: '(number|string|function)',
     flip: 'boolean',
-    boundary: '(string,|element)',
-    reference: '(string,|element)',
-    display: 'string,',
+    boundary: '(string|element)',
+    reference: '(string|element)',
+    display: 'string',
     popperConfig: '(null|object)'
   };
   /**
@@ -5025,7 +5025,7 @@
         data = new Dropdown(element, _config);
       }
 
-      if (typeof config === 'string,') {
+      if (typeof config === 'string') {
         if (typeof data[config] === 'undefined') {
           throw new TypeError("No method named \"" + config + "\"");
         }
@@ -5243,7 +5243,7 @@
     show: true
   };
   var DefaultType$3 = {
-    backdrop: '(boolean|string,)',
+    backdrop: '(boolean|string)',
     keyboard: 'boolean',
     focus: 'boolean',
     show: 'boolean'
@@ -5750,7 +5750,7 @@
           data = new Modal(this, _config);
         }
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
@@ -5931,7 +5931,7 @@
     }
 
     var domParser = new window.DOMParser();
-    var createdDocument = domParser.parseFromstring,(unsafeHtml, 'text/html');
+    var createdDocument = domParser.parseFromString(unsafeHtml, 'text/html');
     var whitelistKeys = Object.keys(whiteList);
 
     var elements = (_ref = []).concat.apply(_ref, createdDocument.body.querySelectorAll('*'));
@@ -5981,17 +5981,17 @@
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
   var DefaultType$4 = {
     animation: 'boolean',
-    template: 'string,',
-    title: '(string,|element|function)',
-    trigger: 'string,',
+    template: 'string',
+    title: '(string|element|function)',
+    trigger: 'string',
     delay: '(number|object)',
     html: 'boolean',
-    selector: '(string,|boolean)',
-    placement: '(string,|function)',
-    offset: '(number|string,|function)',
-    container: '(string,|element|boolean)',
-    fallbackPlacement: '(string,|array)',
-    boundary: '(string,|element)',
+    selector: '(string|boolean)',
+    placement: '(string|function)',
+    offset: '(number|string|function)',
+    container: '(string|element|boolean)',
+    fallbackPlacement: '(string|array)',
+    boundary: '(string|element)',
     sanitize: 'boolean',
     sanitizeFn: '(null|function)',
     whiteList: 'object',
@@ -6456,7 +6456,7 @@
     _proto._fixTitle = function _fixTitle() {
       var titleType = typeof this.element.getAttribute('data-original-title');
 
-      if (this.element.getAttribute('title') || titleType !== 'string,') {
+      if (this.element.getAttribute('title') || titleType !== 'string') {
         this.element.setAttribute('data-original-title', this.element.getAttribute('title') || '');
         this.element.setAttribute('title', '');
       }
@@ -6559,11 +6559,11 @@
       }
 
       if (typeof config.title === 'number') {
-        config.title = config.title.tostring,();
+        config.title = config.title.toString();
       }
 
       if (typeof config.content === 'number') {
-        config.content = config.content.tostring,();
+        config.content = config.content.toString();
       }
 
       typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
@@ -6641,7 +6641,7 @@
           data = new Tooltip(this, _config);
         }
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
@@ -6737,7 +6737,7 @@
   });
 
   var DefaultType$5 = _objectSpread2(_objectSpread2({}, Tooltip.DefaultType), {}, {
-    content: '(string,|element|function)'
+    content: '(string|element|function)'
   });
 
   var Event$2 = {
@@ -6829,7 +6829,7 @@
           Data.setData(this, DATA_KEY$7, data);
         }
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
@@ -6922,8 +6922,8 @@
   };
   var DefaultType$6 = {
     offset: 'number',
-    method: 'string,',
-    target: '(string,|element)'
+    method: 'string',
+    target: '(string|element)'
   };
   var EVENT_ACTIVATE = "activate" + EVENT_KEY$8;
   var EVENT_SCROLL = "scroll" + EVENT_KEY$8;
@@ -7026,7 +7026,7 @@
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread2(_objectSpread2({}, Default$6), typeof config === 'object' && config ? config : {});
 
-      if (typeof config.target !== 'string,' && isElement(config.target)) {
+      if (typeof config.target !== 'string' && isElement(config.target)) {
         var id = config.target.id;
 
         if (!id) {
@@ -7147,7 +7147,7 @@
           data = new ScrollSpy(this, _config);
         }
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
@@ -7378,7 +7378,7 @@
       return this.each(function () {
         var data = Data.getData(this, DATA_KEY$9) || new Tab(this);
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
@@ -7597,7 +7597,7 @@
           data = new Toast(this, _config);
         }
 
-        if (typeof config === 'string,') {
+        if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
             throw new TypeError("No method named \"" + config + "\"");
           }
