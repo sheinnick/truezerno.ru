@@ -176,8 +176,8 @@ function sqlQueryCreateForFiltersResult () {
         where = where + filter + " = '" + filters_stage[filter] + "' AND ";
       }
     }}
-  where += 'aperture != "-"';
-  let orderBy="order by aperture"; //в конце остается AND , чтобы долго не мучаться, просто после него пишем 1 — всегда верно
+  where += 1;//'aperture != "-"';
+  let orderBy=" order by aperture"; //в конце остается AND , чтобы долго не мучаться, просто после него пишем 1 — всегда верно
   let query = "SELECT lightDetail, aperture, exposure FROM tab('"+tabFile+"')" + where + orderBy;
   // console.log(query);
   return query;
@@ -423,6 +423,11 @@ function resultFillValues(results){
       "aperture": "-",
       "exposure": "-"
     }];
+  }
+
+  for (let pair in results){
+    // console.log(results[pair]['aperture'])
+    if(results[pair]['aperture']==0){results[pair]['aperture']='-'};
   }
 
   //берем первую пару
