@@ -387,6 +387,17 @@ btResult.addEventListener("click",
     }
 );
 
+//лисенер на стартовой кнопке
+btStart.addEventListener("click",
+    function(){
+      
+      document.getElementById("intro").remove();
+      document.getElementById("btStart").remove();
+      document.getElementById("filters").hidden=false;
+      document.getElementById("btResult").hidden=false;
+    }
+);
+
 
 //лисенер на крестике в попапе с результатами
 document.querySelector(".result-popup__close").addEventListener("click",

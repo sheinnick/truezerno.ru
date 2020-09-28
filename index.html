@@ -34,8 +34,18 @@
         Сделано в <a href="https://intuition.team/park" class="park">Парке</a>
       </div>
     </div>
-    <h1 class="pt-4">Какие настройки выставить, чтобы кадр получился?</h1>
-    <filters class="filters">
+    
+    <div id="intro" class="filters intro">
+      <h1 class="pt-4 header mb-5">Настоящее зерно</h1>
+      <div class="intro-text pr-3">
+        <p>Когда первый раз берёшь в&nbsp;руки плёночный фотоаппарат<br>iso/диафрагма/выдержка звучат как что-то невероятное.</p>
+        <p>Мы&nbsp;хотим, чтобы фотографировать на&nbsp;пленку стало просто, интересно и&nbsp;не&nbsp;страшно испортить кадр.</p>
+        <p>Всё просто: выберите ISO пленки (оно указано на&nbsp;катушке или коробке от&nbsp;пленки), где хотите сделать фото и&nbsp;какое вокруг освещениие.</p>
+      </div>
+    </div>
+
+    <filters id="filters" class="filters" hidden>
+      <h1 class="pt-4">Какие настройки выставить, чтобы кадр получился?</h1>
       <!-- ISO -->
       <div id="ISOBlock">
         <div class="header-select invisible pt-4" id="headerISOSelect" >ISO плёнки</div>
@@ -147,9 +157,14 @@
     
     <button id="btResult"
       class="btn disabled btn-primary btn-lg fixed-bottom btn-block mt-5 "
-      type="submit">
+      type="submit"
+      hidden>
       Посмотреть значения</button>
 
+    <button id="btStart"
+    class="btn  btn-primary btn-lg fixed-bottom btn-block mt-5 "
+    type="submit">
+    Начать</button>
     
     </div>
 
