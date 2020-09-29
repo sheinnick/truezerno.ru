@@ -39,7 +39,7 @@
       </div>
     </div>
     
-    <div id="intro" class="filters intro">
+    <div id="intro" class="filters intro" hidden>
       <h1 class="pt-4 header mb-4">Настоящее зерно</h1>
       <div class="intro-text pr-3">
         <p>Когда впервые берёшь в&nbsp;руки плёночный фотоаппарат, ISO, диафрагма и&nbsp;выдержка звучат как что-то невероятное.</p>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <filters id="filters" class="filters" hidden>
+    <filters id="filters" class="filters" >
       <h1 class="pt-4">Какие настройки выставить, чтобы кадр получился?</h1>
       <!-- ISO -->
       <div id="ISOBlock">
@@ -85,9 +85,9 @@
 
       <div id="LIGHTBlock" class="invisible lightblock" hidden>
         <h5 class="zerno-header pt-5">Какой свет?</h5>
-        <div class="select-group" id="LIGHTSelector">
+        <div class="select-group row row-cols-2 mx-0" id="LIGHTSelector">
           
-          <div class="form__answer"> 
+          <div class="form__answer col-6 g-2"> 
             <input type="radio" name="LIGHTSelector" id="LIGHTSelector01" value="Дневной свет">
             <label for="LIGHTSelector01">
               <svg id="svgSun" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,7 +108,7 @@
             </label>
           </div>
 
-          <div class="form__answer"> 
+          <div class="form__answer col-6  g-2"> 
             <input type="radio" name="LIGHTSelector" id="LIGHTSelector02" value="Лампы накаливания">
             <label for="LIGHTSelector02">
               <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +123,7 @@
             </label>
           </div>
 
-          <div class="form__answer"> 
+          <div class="form__answer col-6 g-2"> 
             <input type="radio" name="LIGHTSelector" id="LIGHTSelector03" value="Светодиодные лампы">
             <label for="LIGHTSelector03">
               <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +136,7 @@
             </label>
           </div>
           
-          <div class="form__answer"> 
+          <div class="form__answer col-6 g-2"> 
             <input type="radio" name="LIGHTSelector" id="LIGHTSelector04" value="Свечи или гирлянды">
             <label for="LIGHTSelector04">
               <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

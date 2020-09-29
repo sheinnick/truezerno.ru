@@ -128,11 +128,11 @@ main{
 }
 
 .form__answer {
-	display: inline-block;
-	box-sizing: border-box;
-	margin: 0px 5px 10px 0px;
-  text-align: center; 
-  vertical-align: bottom;
+	/* display: inline-block ; */
+	/* box-sizing: border-box; */
+	/* margin: 0px 5px 10px 0px; */
+   
+  /* vertical-align: bottom; */
 }
 
 .form__answer label {
@@ -143,24 +143,19 @@ main{
 	padding: 10px 10px 10px 10px;
 	cursor: pointer;
   transition: e .5s ease-in-out;
-  width: 130px;
-	height: 90px;
-
+  /* width: 130px; */
+  height: 90px;
+  text-align: center;
 }
+
 .answer_text {
-    
-    /* font-family: Manrope; */
-    /* font-style: normal; */
     font-weight: bold;
     font-size: 12px;
-
     display: block;
     padding-top: 5px;
     padding-bottom:  12px;
-
     text-align: center;
     letter-spacing: -0.01em;
-
     color: #27242E;
 
 
