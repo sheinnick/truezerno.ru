@@ -287,7 +287,7 @@ input:hover {
   padding: 40px 30px 25px;
   background-color: #fff;
   border-radius: 27px 27px 0 0;
-  /* width: 375px; */
+  width: 375px;
   margin-top: 30vh;
   position: relative;
   left: calc(50% - 188px);
@@ -307,9 +307,13 @@ input:hover {
     }
 
     .result-popup__modal__small_height .result__modal__first{
-    font-size: 25px;
+    font-size: 24px;
+    margin-bottom: 10px;
     }
 
+    .result-popup__modal__small_height .result__modal__first__titles{
+      font-size: 12px;
+      }
 
   .result-popup__close{
     color: #222b55;
