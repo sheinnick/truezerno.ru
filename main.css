@@ -7,11 +7,9 @@ line-height: 140%;
 
 body{
   background: #8F00C2;
-  /* color: #27242E;
-  font-family: Manrope;
-  font-style: normal;
-  font: Manrope; */
 }
+
+
 
 button, input, optgroup, select, textarea,body{
   color: #27242E;
@@ -127,13 +125,6 @@ main{
     display: none;
 }
 
-.form__answer {
-	/* display: inline-block ; */
-	/* box-sizing: border-box; */
-	/* margin: 0px 5px 10px 0px; */
-   
-  /* vertical-align: bottom; */
-}
 
 .form__answer label {
   border: 1px solid transparent;
@@ -208,10 +199,8 @@ input:hover {
 .btn-primary {
     color: #fff;
     background-color: #8F00C2;
-    /* border-color: #8F00C2; */
-    border: 1px solid white;
-    
-    
+    border: 1px solid white;    
+    width: calc(100% - 32px);
   }
   
   .btn-primary:hover {
@@ -267,8 +256,6 @@ input:hover {
     
     box-sizing: border-box;
     backdrop-filter: blur(5px);
-    /* left: calc(50% - 176px); */
-    /* position: relative; */
   }
 
   .result-popup__overlay{
@@ -405,3 +392,4 @@ input:hover {
       max-width: 320px;
       
     }
+
