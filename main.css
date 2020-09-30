@@ -197,6 +197,10 @@ input:hover {
     background-color: #8F00C2;
     border: 1px solid white;    
     width: calc(100% - 32px);
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 130%;
   }
   
   .btn-primary:hover {
@@ -366,7 +370,7 @@ input:hover {
     }
     
     .intro{
-      margin-left: 15px;
+      /* margin-left: 15px; */
       padding-bottom: 70px;
     }
 
